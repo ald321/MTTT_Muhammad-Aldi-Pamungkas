@@ -83,7 +83,36 @@ public function reg($data){
 	   return mysqli_affected_rows($conn);
 }
 }
-$conn = new koneksi();
+
+ class profile extends koneksi
+ {
+ 	
+ 	public function ubah_profile($data){
+ 		
+ 	$conn= $this->mysqli_akun;
+	// id tidak di input ulang
+	$id= $data["id"];
+	$nama = htmlspecialchars($data["nama"]);
+	$alamat = htmlspecialchars($data["alamat"]);
+	$lahir = htmlspecialchars($data["lahir"]);
+	$email = $data["email"];
+
+	$conn->query("UPDATE user_profile SET 
+					nama = '$nama',
+					alamat= '$alamat',
+					tanggal_lahir='$lahir',
+					email= '$email'
+					WHERE id = $id");
+	return mysqli_affected_rows($conn);
+	
+ 	}
+
+
+ }
+
+
+
+ $conn = new koneksi();
 
 $conn = $conn->mysqli_akun;
 
@@ -123,8 +152,3 @@ if( isset($_POST["login"])) {
         
        
     } 
-
-
-/**
- * 
- */
